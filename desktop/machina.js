@@ -46,7 +46,10 @@ module.exports.start = function(win, config) {
       'playerSpawn',
       'inventoryModifyHandler',
       'containerInfo',
-      'npcSpawn'
+      'npcSpawn',
+      'weatherChange',
+      'initZone',
+      'actorControl143'// Set bait actor control
     ];
     if (acceptedPackets.indexOf(packet.type) > -1) {
       sendToRenderer(win, packet);

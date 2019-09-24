@@ -1,10 +1,10 @@
-import { ModuleWithProviders, NgModule, ErrorHandler } from '@angular/core';
+import { ErrorHandler, ModuleWithProviders, NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GarlandToolsService } from './api/garland-tools.service';
 import { DataService } from './api/data.service';
 import { NgSerializerModule } from '@kaiu/ng-serializer';
 import { I18nPipe } from './i18n.pipe';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { LocalizedDataService } from './data/localized-data.service';
 import { PushNotificationsModule } from 'ng-push';
 import { AbstractNotification } from './notification/abstract-notification';
@@ -32,7 +32,7 @@ import { CustomLink } from './database/custom-links/custom-link';
 import { ListTemplate } from './database/custom-links/list-template';
 import { WeatherService } from './eorzea/weather.service';
 import { DbButtonComponent } from './db-button/db-button.component';
-import { NgZorroAntdModule, NzMessageService } from 'ng-zorro-antd';
+import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { RouterModule } from '@angular/router';
 import { ItemRarityDirective } from './item-rarity/item-rarity.directive';
 import { DbItemCommentNotification } from '../model/notification/db-item-comment-notification';
@@ -41,6 +41,10 @@ import { AdminGuard } from './guard/admin.guard';
 import { BlogPostNotification } from '../model/notification/blog-post-notification';
 import { ErrorInterceptor } from './interceptor/error-interceptor';
 import { TeamcraftErrorHandler } from './error-handler/teamcraft-error-handler';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { eorzeaInitialState, eorzeaReducer } from './eorzea/+state/eorzea.reducer';
+import { EorzeaEffects } from './eorzea/+state/eorzea.effects';
 
 
 @NgModule({
@@ -71,7 +75,10 @@ import { TeamcraftErrorHandler } from './error-handler/teamcraft-error-handler';
     PushNotificationsModule,
     MaintenanceModule,
     NgZorroAntdModule,
-    RouterModule
+    RouterModule,
+
+    StoreModule.forFeature('eorzea', eorzeaReducer, { initialState: eorzeaInitialState }),
+    EffectsModule.forFeature([EorzeaEffects])
   ],
   providers: [
     UserService,

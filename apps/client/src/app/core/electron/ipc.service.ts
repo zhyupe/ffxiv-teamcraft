@@ -143,6 +143,7 @@ export class IpcService {
         this._marketboardListingHistory$.next(packet);
         break;
       case 'playerSetup':
+        // useBaitCatalogId
         this._cid$.next(packet);
         break;
       case 'playerSpawn':
